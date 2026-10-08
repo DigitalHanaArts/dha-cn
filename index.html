@@ -1,0 +1,3209 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="Digital__Hana__Arts® — 数字花艺术。计算创意，横跨艺术、数据、人工智能与区块链。后后现代抽象表达。"
+    >
+
+    <meta
+        name="theme-color"
+        content="#000000"
+    >
+
+    <meta
+        property="og:title"
+        content="Digital__Hana__Arts® — 抽象"
+    >
+
+    <meta
+        property="og:description"
+        content="艺术 × 数据 × 智能 × 区块链 × 抽象"
+    >
+
+    <meta
+        property="og:type"
+        content="website"
+    >
+
+    <meta
+        property="og:image"
+        content="assets/DHA_logo.png"
+    >
+
+    <title>
+        DHA® — [抽象引擎]
+    </title>
+
+
+    <!-- =====================================================
+         字体
+    ====================================================== -->
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@300;400;500&family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700;900&family=Noto+Serif+SC:wght@400;700;900&display=swap"
+        rel="stylesheet"
+    >
+
+
+    <style>
+
+        /* =====================================================
+           DHA — 抽象协议 v2.0
+        ====================================================== */
+
+        :root {
+
+            --void: #000000;
+            --void-2: #0a0a0a;
+            --void-3: #111111;
+
+            --bone: #f0f0f0;
+            --ash: #808080;
+            --smoke: #404040;
+
+            --acid: #ccff00;
+            --blood: #ff0040;
+            --chrome: #c0c0c0;
+            --static: #666666;
+
+            --grid-line: rgba(255,255,255,.08);
+            --border-raw: rgba(255,255,255,.25);
+
+            --radius-sharp: 0px;
+            --radius-blunt: 4px;
+
+            --max-width: 1400px;
+
+            --glitch-offset: 4px;
+
+        }
+
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+
+        html {
+            scroll-behavior: smooth;
+            background: var(--void);
+        }
+
+
+        body {
+
+            background: var(--void);
+
+            color: var(--bone);
+
+            font-family:
+                "Space Grotesk",
+                "Noto Sans SC",
+                "Inter",
+                system-ui,
+                sans-serif;
+
+            overflow-x: hidden;
+
+            cursor: crosshair;
+
+            position: relative;
+
+            line-height: 1.8;
+
+        }
+
+
+        ::selection {
+
+            background: var(--acid);
+
+            color: var(--void);
+
+        }
+
+
+        /* =====================================================
+           噪点纹理叠加
+        ====================================================== */
+
+        body::before {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: 9999;
+
+            opacity: .045;
+
+            background-image:
+
+                repeating-conic-gradient(
+                    from 0deg,
+                    rgba(255,255,255,.1) 0deg,
+                    rgba(0,0,0,.1) 1deg,
+                    rgba(255,255,255,.05) 2deg,
+                    rgba(0,0,0,.05) 3deg
+                );
+
+            mix-blend-mode: overlay;
+
+        }
+
+
+        body::after {
+
+            content: "";
+
+            position: fixed;
+
+            inset: 0;
+
+            pointer-events: none;
+
+            z-index: 9998;
+
+            background:
+
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    transparent 2px,
+                    rgba(255,255,255,.02) 3px,
+                    transparent 4px
+                );
+
+            mix-blend-mode: screen;
+
+        }
+
+
+        /* =====================================================
+           故障动效
+        ====================================================== */
+
+        @keyframes glitch-shift {
+
+            0% {
+                transform: translate(0, 0) skewX(0deg);
+                clip-path: inset(0 0 0 0);
+            }
+
+            5% {
+                transform: translate(-2px, 2px) skewX(3deg);
+                clip-path: inset(10% 0 80% 0);
+            }
+
+            10% {
+                transform: translate(3px, -1px) skewX(-2deg);
+                clip-path: inset(40% 0 40% 0);
+            }
+
+            15% {
+                transform: translate(-1px, -3px) skewX(0deg);
+                clip-path: inset(70% 0 10% 0);
+            }
+
+            20% {
+                transform: translate(0, 0) skewX(0deg);
+                clip-path: inset(0 0 0 0);
+            }
+
+            100% {
+                transform: translate(0, 0) skewX(0deg);
+                clip-path: inset(0 0 0 0);
+            }
+
+        }
+
+
+        @keyframes glitch-clip {
+
+            0%, 100% {
+                clip-path: inset(0 0 0 0);
+            }
+
+            10% {
+                clip-path: inset(20% 0 60% 0);
+            }
+
+            20% {
+                clip-path: inset(80% 0 10% 0);
+            }
+
+            30% {
+                clip-path: inset(40% 0 30% 0);
+            }
+
+            40% {
+                clip-path: inset(10% 0 90% 0);
+            }
+
+            50% {
+                clip-path: inset(0 0 0 0);
+            }
+
+        }
+
+
+        @keyframes scanline {
+
+            0% {
+                top: -100%;
+            }
+
+            100% {
+                top: 200%;
+            }
+
+        }
+
+
+        @keyframes static-burst {
+
+            0%, 100% {
+                opacity: .1;
+            }
+
+            50% {
+                opacity: .5;
+            }
+
+        }
+
+
+        @keyframes rotate-slow {
+
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+
+        }
+
+
+        @keyframes pulse-raw {
+
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+        }
+
+
+        /* =====================================================
+           扫描线
+        ====================================================== */
+
+        .scanline {
+
+            position: fixed;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 2px;
+
+            background: var(--acid);
+
+            opacity: .1;
+
+            pointer-events: none;
+
+            z-index: 9000;
+
+            animation: scanline 8s linear infinite;
+
+        }
+
+
+        /* =====================================================
+           导航 —— 粗野主义
+        ====================================================== */
+
+        nav {
+
+            position: fixed;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            z-index: 1000;
+
+            background: rgba(0,0,0,.85);
+
+            border-bottom: 1px solid var(--border-raw);
+
+            backdrop-filter: blur(20px);
+
+            -webkit-backdrop-filter: blur(20px);
+
+            padding: 0 clamp(16px, 4vw, 60px);
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: space-between;
+
+            height: 64px;
+
+        }
+
+
+        .nav-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-weight: 500;
+
+            font-size: 13px;
+
+            letter-spacing: .2em;
+
+            color: var(--bone);
+
+            text-decoration: none;
+
+        }
+
+
+        .nav-logo {
+
+            width: 28px;
+
+            height: 28px;
+
+            object-fit: contain;
+
+            filter: invert(1) contrast(1.2);
+
+        }
+
+
+        .nav-links {
+
+            display: flex;
+
+            gap: 28px;
+
+            align-items: center;
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 11px;
+
+            letter-spacing: .15em;
+
+        }
+
+
+        .nav-links a {
+
+            color: var(--ash);
+
+            text-decoration: none;
+
+            transition: color .2s ease;
+
+            position: relative;
+
+        }
+
+
+        .nav-links a::before {
+
+            content: "";
+
+            position: absolute;
+
+            bottom: -4px;
+
+            left: 0;
+
+            width: 0;
+
+            height: 1px;
+
+            background: var(--acid);
+
+            transition: width .3s ease;
+
+        }
+
+
+        .nav-links a:hover {
+
+            color: var(--bone);
+
+        }
+
+
+        .nav-links a:hover::before {
+
+            width: 100%;
+
+        }
+
+
+        /* 语言切换 */
+
+        .lang-switch {
+
+            position: relative;
+
+            display: inline-block;
+
+        }
+
+
+        .lang-toggle {
+
+            position: absolute;
+
+            opacity: 0;
+
+            width: 0;
+
+            height: 0;
+
+        }
+
+
+        .lang-button {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 6px;
+
+            cursor: pointer;
+
+            padding: 8px 14px;
+
+            border: 1px solid var(--border-raw);
+
+            background: transparent;
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: .12em;
+
+            color: var(--bone);
+
+            transition: all .2s ease;
+
+            user-select: none;
+
+        }
+
+
+        .lang-button:hover {
+
+            background: var(--acid);
+
+            color: var(--void);
+
+            border-color: var(--acid);
+
+        }
+
+
+        .lang-dropdown {
+
+            position: absolute;
+
+            top: calc(100% + 8px);
+
+            right: 0;
+
+            min-width: 140px;
+
+            background: var(--void-2);
+
+            border: 1px solid var(--border-raw);
+
+            padding: 0;
+
+            opacity: 0;
+
+            visibility: hidden;
+
+            transform: translateY(-4px);
+
+            transition: all .2s ease;
+
+            z-index: 1001;
+
+        }
+
+
+        .lang-option {
+
+            display: block;
+
+            padding: 10px 16px;
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: .1em;
+
+            color: var(--ash);
+
+            text-decoration: none;
+
+            transition: all .2s ease;
+
+            border-bottom: 1px solid rgba(255,255,255,.05);
+
+        }
+
+
+        .lang-option:hover {
+
+            background: var(--void-3);
+
+            color: var(--acid);
+
+        }
+
+
+        .lang-option.active {
+
+            color: var(--void);
+
+            background: var(--acid);
+
+        }
+
+
+        .lang-toggle:checked ~ .lang-dropdown,
+
+        .lang-switch:focus-within .lang-dropdown {
+
+            opacity: 1;
+
+            visibility: visible;
+
+            transform: translateY(0);
+
+        }
+
+
+        /* =====================================================
+           主视觉 —— 解构
+        ====================================================== */
+
+        .hero {
+
+            min-height: 100vh;
+
+            display: flex;
+
+            align-items: center;
+
+            padding: 100px 0 60px;
+
+            position: relative;
+
+        }
+
+
+        .hero-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 40px;
+
+            align-items: center;
+
+            width: 100%;
+
+        }
+
+
+        .hero-text {
+
+            position: relative;
+
+            z-index: 2;
+
+        }
+
+
+        .hero-label {
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 11px;
+
+            letter-spacing: .25em;
+
+            color: var(--acid);
+
+            margin-bottom: 30px;
+
+            display: inline-block;
+
+            border: 1px solid var(--acid);
+
+            padding: 8px 16px;
+
+            transform: rotate(-2deg);
+
+            background: rgba(204,255,0,.05);
+
+        }
+
+
+        .hero-text h1 {
+
+            font-size: clamp(3.5rem, 11vw, 9rem);
+
+            line-height: .85;
+
+            letter-spacing: -.02em;
+
+            font-weight: 700;
+
+            font-family:
+                "Space Grotesk",
+                "Noto Serif SC",
+                "Noto Sans SC",
+                sans-serif;
+
+            position: relative;
+
+            word-break: keep-all;
+
+        }
+
+
+        .hero-text h1 .word {
+
+            display: block;
+
+            position: relative;
+
+        }
+
+
+        .hero-text h1 .word-1 {
+
+            color: var(--bone);
+
+            text-shadow:
+
+                var(--glitch-offset) 0 0 var(--blood),
+
+                calc(var(--glitch-offset) * -1) 0 0 var(--acid);
+
+            animation: glitch-clip 6s infinite;
+
+        }
+
+
+        .hero-text h1 .word-2 {
+
+            color: transparent;
+
+            -webkit-text-stroke: 2px var(--acid);
+
+            font-style: italic;
+
+            transform: translateX(20px) rotate(-3deg);
+
+            animation: glitch-shift 8s infinite;
+
+        }
+
+
+        .hero-text h1 .word-3 {
+
+            color: var(--void);
+
+            background: var(--acid);
+
+            padding: 0 16px;
+
+            display: inline-block;
+
+            transform: skewX(-10deg);
+
+            animation: pulse-raw 4s infinite;
+
+        }
+
+
+        .hero-brand-en {
+
+            display: block;
+
+            margin-top: 18px;
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: .35em;
+
+            color: var(--ash);
+
+            text-transform: uppercase;
+
+        }
+
+
+        .hero-copy {
+
+            margin-top: 40px;
+
+            max-width: 620px;
+
+            font-family: "Noto Sans SC", "DM Mono", monospace;
+
+            font-size: 14px;
+
+            line-height: 2;
+
+            color: var(--ash);
+
+            border-left: 3px solid var(--blood);
+
+            padding-left: 20px;
+
+            transform: rotate(1deg);
+
+        }
+
+
+        .hero-copy strong {
+
+            color: var(--bone);
+
+            font-weight: 500;
+
+            text-decoration: underline;
+
+            text-decoration-color: var(--acid);
+
+            text-underline-offset: 4px;
+
+        }
+
+
+        .hero-actions {
+
+            display: flex;
+
+            gap: 16px;
+
+            margin-top: 40px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .button {
+
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            padding: 14px 26px;
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 11px;
+
+            letter-spacing: .15em;
+
+            text-decoration: none;
+
+            border: 1px solid var(--border-raw);
+
+            background: transparent;
+
+            color: var(--bone);
+
+            transition: all .25s ease;
+
+            position: relative;
+
+            overflow: hidden;
+
+            white-space: nowrap;
+
+        }
+
+
+        .button::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: -100%;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: var(--acid);
+
+            transition: left .25s ease;
+
+            z-index: -1;
+
+        }
+
+
+        .button:hover::before {
+
+            left: 0;
+
+        }
+
+
+        .button:hover {
+
+            color: var(--void);
+
+            border-color: var(--acid);
+
+        }
+
+
+        .button-primary {
+
+            background: var(--acid);
+
+            color: var(--void);
+
+            border-color: var(--acid);
+
+        }
+
+
+        .button-primary::before {
+
+            background: var(--blood);
+
+        }
+
+
+        .button-primary:hover {
+
+            color: var(--bone);
+
+            border-color: var(--blood);
+
+        }
+
+
+        /* 主视觉抽象构成 */
+
+        .hero-art {
+
+            position: relative;
+
+            min-height: 600px;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+        }
+
+
+        .abstract-composition {
+
+            position: relative;
+
+            width: 100%;
+
+            height: 100%;
+
+            min-height: 500px;
+
+        }
+
+
+        .abstract-shape {
+
+            position: absolute;
+
+            border: 2px solid var(--border-raw);
+
+            background: rgba(255,255,255,.02);
+
+        }
+
+
+        .shape-1 {
+
+            width: 300px;
+
+            height: 300px;
+
+            top: 20%;
+
+            left: 10%;
+
+            border-radius: 50%;
+
+            animation: rotate-slow 30s linear infinite;
+
+            border-color: var(--acid);
+
+        }
+
+
+        .shape-2 {
+
+            width: 200px;
+
+            height: 200px;
+
+            top: 40%;
+
+            left: 50%;
+
+            transform: rotate(45deg);
+
+            border-color: var(--blood);
+
+            animation: pulse-raw 5s infinite;
+
+        }
+
+
+        .shape-3 {
+
+            width: 150px;
+
+            height: 400px;
+
+            top: 15%;
+
+            left: 60%;
+
+            border-radius: 0;
+
+            border-color: var(--chrome);
+
+            transform: skewX(20deg);
+
+            background: rgba(192,192,192,.05);
+
+        }
+
+
+        .shape-4 {
+
+            width: 250px;
+
+            height: 250px;
+
+            top: 50%;
+
+            left: 20%;
+
+            border-radius: 50% 0 50% 0;
+
+            border-color: var(--acid);
+
+            opacity: .6;
+
+            animation: glitch-clip 7s infinite;
+
+        }
+
+
+        .glitch-text {
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%);
+
+            font-family: "DM Mono", "Noto Serif SC", monospace;
+
+            font-size: clamp(4rem, 10vw, 8rem);
+
+            font-weight: 700;
+
+            color: var(--bone);
+
+            letter-spacing: .05em;
+
+            animation: glitch-shift 5s infinite;
+
+            z-index: 3;
+
+        }
+
+
+        .glitch-text::before,
+
+        .glitch-text::after {
+
+            content: attr(data-text);
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+        }
+
+
+        .glitch-text::before {
+
+            color: var(--blood);
+
+            animation: glitch-clip 4s infinite;
+
+            clip-path: inset(0 0 70% 0);
+
+            transform: translate(-3px, -3px);
+
+        }
+
+
+        .glitch-text::after {
+
+            color: var(--acid);
+
+            animation: glitch-clip 6s infinite;
+
+            clip-path: inset(70% 0 0 0);
+
+            transform: translate(3px, 3px);
+
+        }
+
+
+        /* =====================================================
+           跑马灯
+        ====================================================== */
+
+        .marquee {
+
+            border-top: 1px solid var(--border-raw);
+
+            border-bottom: 1px solid var(--border-raw);
+
+            padding: 20px 0;
+
+            overflow: hidden;
+
+            background: var(--void-2);
+
+            position: relative;
+
+        }
+
+
+        .marquee::before {
+
+            content: "";
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 100%;
+
+            height: 100%;
+
+            background: repeating-linear-gradient(
+                90deg,
+                transparent 0px,
+                transparent 50px,
+                rgba(255,255,255,.03) 51px,
+                transparent 52px
+            );
+
+            pointer-events: none;
+
+            z-index: 1;
+
+        }
+
+
+        .marquee-track {
+
+            display: inline-flex;
+
+            gap: 40px;
+
+            animation: marquee 22s linear infinite;
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 12px;
+
+            letter-spacing: .2em;
+
+            white-space: nowrap;
+
+        }
+
+
+        .marquee-track span {
+
+            color: var(--ash);
+
+            position: relative;
+
+        }
+
+
+        .marquee-track span::before {
+
+            content: "[";
+
+            color: var(--acid);
+
+            margin-right: 8px;
+
+        }
+
+
+        .marquee-track span::after {
+
+            content: "]";
+
+            color: var(--acid);
+
+            margin-left: 8px;
+
+        }
+
+
+        @keyframes marquee {
+
+            to {
+                transform: translateX(-50%);
+            }
+
+        }
+
+
+        /* =====================================================
+           区块
+        ====================================================== */
+
+        section {
+
+            padding: 120px 0;
+
+            position: relative;
+
+            border-bottom: 1px solid rgba(255,255,255,.05);
+
+        }
+
+
+        .container {
+
+            width: min(calc(100% - 40px), var(--max-width));
+
+            margin: auto;
+
+            position: relative;
+
+        }
+
+
+        .section-label {
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: .25em;
+
+            color: var(--blood);
+
+            margin-bottom: 30px;
+
+            display: inline-block;
+
+            transform: rotate(-1deg);
+
+            border-bottom: 2px solid var(--acid);
+
+            padding-bottom: 4px;
+
+        }
+
+
+        .section-title {
+
+            font-size: clamp(2.2rem, 5.5vw, 5rem);
+
+            line-height: .95;
+
+            letter-spacing: -.03em;
+
+            font-weight: 700;
+
+            margin-bottom: 30px;
+
+            position: relative;
+
+            font-family:
+                "Space Grotesk",
+                "Noto Serif SC",
+                "Noto Sans SC",
+                sans-serif;
+
+        }
+
+
+        .section-title .accent {
+
+            color: transparent;
+
+            -webkit-text-stroke: 1.5px var(--acid);
+
+            font-style: italic;
+
+        }
+
+
+        .section-title .strike {
+
+            text-decoration: line-through;
+
+            text-decoration-color: var(--blood);
+
+            text-decoration-thickness: 4px;
+
+        }
+
+
+        .section-intro {
+
+            font-family: "Noto Sans SC", "DM Mono", monospace;
+
+            font-size: 14px;
+
+            line-height: 2;
+
+            color: var(--ash);
+
+            max-width: 700px;
+
+            margin-bottom: 60px;
+
+            border-left: 3px solid var(--acid);
+
+            padding-left: 20px;
+
+        }
+
+
+        /* =====================================================
+           领域 —— 破碎网格
+        ====================================================== */
+
+        .domains {
+
+            display: grid;
+
+            grid-template-columns: repeat(4, 1fr);
+
+            gap: 0;
+
+            border: 1px solid var(--border-raw);
+
+        }
+
+
+        .domain {
+
+            padding: 40px 30px;
+
+            min-height: 300px;
+
+            position: relative;
+
+            border-right: 1px solid var(--border-raw);
+
+            border-bottom: 1px solid var(--border-raw);
+
+            background: var(--void);
+
+            transition: all .3s ease;
+
+            cursor: crosshair;
+
+        }
+
+
+        .domain:nth-child(4n) {
+
+            border-right: none;
+
+        }
+
+
+        .domain:nth-last-child(-n+4) {
+
+            border-bottom: none;
+
+        }
+
+
+        .domain:hover {
+
+            background: var(--void-2);
+
+            transform: translateY(-4px);
+
+            border-color: var(--acid);
+
+        }
+
+
+        .domain::before {
+
+            content: attr(data-number);
+
+            position: absolute;
+
+            top: 20px;
+
+            right: 25px;
+
+            font-family: "DM Mono", monospace;
+
+            font-size: 12px;
+
+            color: var(--acid);
+
+        }
+
+
+        .domain-symbol {
+
+            font-size: 60px;
+
+            margin-bottom: 30px;
+
+            opacity: .5;
+
+            animation: pulse-raw 5s infinite;
+
+        }
+
+
+        .domain h3 {
+
+            font-size: 22px;
+
+            letter-spacing: .05em;
+
+            margin-bottom: 15px;
+
+            color: var(--bone);
+
+            font-family:
+                "Space Grotesk",
+                "Noto Serif SC",
+                "Noto Sans SC",
+                sans-serif;
+
+            font-weight: 700;
+
+        }
+
+
+        .domain p {
+
+            font-size: 13px;
+
+            line-height: 1.9;
+
+            color: var(--ash);
+
+            font-family: "Noto Sans SC", "DM Mono", monospace;
+
+        }
+
+
+        /* =====================================================
+           关于
+        ====================================================== */
+
+        .about-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 60px;
+
+            align-items: center;
+
+        }
+
+
+        .about-visual {
+
+            min-height: 500px;
+
+            position: relative;
+
+            background: var(--void-2);
+
+            border: 1px solid var(--border-raw);
+
+            overflow: hidden;
+
+        }
+
+
+        .about-visual::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+
+                linear-gradient(45deg, var(--acid) 25%, transparent 25%),
+                linear-gradient(-45deg, var(--blood) 25%, transparent 25%),
+                linear-gradient(45deg, transparent 75%, var(--chrome) 75%),
+                linear-gradient(-45deg, transparent 75%, var(--acid) 75%);
+
+            background-size: 20px 20px;
+
+            background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+
+            opacity: .1;
+
+            animation: static-burst 3s infinite;
+
+        }
+
+
+        .about-visual::after {
+
+            content: "DHA®";
+
+            position: absolute;
+
+            top: 50%;
+
+            left: 50%;
+
+            transform: translate(-50%, -50%) rotate(-15deg);
+
+            font-size: clamp(5rem, 15vw, 12rem);
+
+            font-weight: 700;
+
+            color: transparent;
+
+            -webkit-text-stroke: 3px var(--acid);
+
+            opacity: .4;
+
+            font-family: "DM Mono", monospace;
+
+        }
+
+
+        .about-text h2 {
+
+            font-size: clamp(2rem, 4vw, 4rem);
+
+            line-height: 1;
+
+            letter-spacing: -.02em;
+
+            margin-bottom: 20px;
+
+            font-family:
+                "Space Grotesk",
+                "Noto Serif SC",
+                "Noto Sans SC",
+                sans-serif;
+
+            font-weight: 700;
+
+        }
+
+
+        .about-text h2 .highlight {
+
+            background: var(--blood);
+
+            color: var(--void);
+
+            padding: 0 10px;
+
+            display: inline-block;
+
+            transform: skewX(-5deg);
+
+        }
+
+
+        .about-text p {
+
+            font-size: 14px;
+
+            line-height: 2;
+
+            color: var(--ash);
+
+            font-family: "Noto Sans SC", "DM Mono", monospace;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .about-text p strong {
+
+            color: var(--acid);
+
+            font-weight: 500;
+
+        }
+
+
+        /* =====================================================
+           作品 —— 原始区块
+        ====================================================== */
+
+        .project {
+
+            margin-bottom: 40px;
+
+            border: 1px solid var(--border-raw);
+
+            background: var(--void-2);
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            position: relative;
+
+            transition: all .3s ease;
+
+        }
+
+
+        .project:hover {
+
+            border-color: var(--acid);
+
+            transform: translateX(-4px);
+
+        }
+
+
+        .project-visual {
+
+            min-height: 400px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            background: var(--void);
+
+        }
+
+
+        .project-visual img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            filter: grayscale(100%) contrast(1.2);
+
+            transition: all .5s ease;
+
+        }
+
+
+        .project:hover .project-visual img {
+
+            filter: grayscale(0%) contrast(1.1) hue-rotate(45deg);
+
+            transform: scale(1.05);
+
+        }
+
+
+        .project-visual::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background: repeating-linear-gradient(
+                0deg,
+                transparent 0px,
+                transparent 4px,
+                rgba(0,0,0,.3) 5px
+            );
+
+            z-index: 1;
+
+            pointer-events: none;
+
+        }
+
+
+        .project-info {
+
+            padding: clamp(30px, 5vw, 60px);
+
+            display: flex;
+
+            flex-direction: column;
+
+            justify-content: center;
+
+            position: relative;
+
+        }
+
+
+        .project-tag {
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: .2em;
+
+            color: var(--acid);
+
+            margin-bottom: 20px;
+
+            display: inline-block;
+
+        }
+
+
+        .project-info h3 {
+
+            font-size: clamp(1.9rem, 4vw, 3.6rem);
+
+            letter-spacing: -.02em;
+
+            line-height: 1;
+
+            margin-bottom: 20px;
+
+            color: var(--bone);
+
+            font-family:
+                "Space Grotesk",
+                "Noto Serif SC",
+                "Noto Sans SC",
+                sans-serif;
+
+            font-weight: 700;
+
+        }
+
+
+        .project-info p {
+
+            font-size: 13px;
+
+            line-height: 1.9;
+
+            color: var(--ash);
+
+            font-family: "Noto Sans SC", "DM Mono", monospace;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .tech {
+
+            display: flex;
+
+            gap: 8px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 25px;
+
+        }
+
+
+        .tech span {
+
+            border: 1px solid var(--border-raw);
+
+            padding: 6px 12px;
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: .1em;
+
+            color: var(--chrome);
+
+            background: var(--void);
+
+        }
+
+
+        /* --- 多链接布局（用于 MLabChain） --- */
+
+        .project-links {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+        .project-links .button {
+
+            padding: 12px 18px;
+
+            font-size: 10px;
+
+        }
+
+
+        /* --- 项目视觉上的 Logo 徽章 --- */
+
+        .project-logo-badge {
+
+            position: absolute;
+
+            bottom: 20px;
+
+            left: 20px;
+
+            width: 76px;
+
+            height: 76px;
+
+            object-fit: contain;
+
+            z-index: 3;
+
+            padding: 10px;
+
+            background: rgba(0,0,0,.55);
+
+            border: 1px solid var(--border-raw);
+
+            backdrop-filter: blur(10px);
+
+            -webkit-backdrop-filter: blur(10px);
+
+            filter: none !important;   /* 覆盖 .project-visual img */
+
+        }
+
+
+        .project:hover .project-logo-badge {
+
+            border-color: var(--acid);
+
+        }
+
+
+        /* --- 宽幅横幅变体 --- */
+
+        .project.project-wide .project-visual {
+
+            min-height: 480px;
+
+        }
+
+
+        /* =====================================================
+           花 —— 解构
+        ====================================================== */
+
+        .hana-grid {
+
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 60px;
+
+            align-items: center;
+
+        }
+
+
+        .hana-copy h2 {
+
+            font-size: clamp(3rem, 7vw, 7rem);
+
+            line-height: .9;
+
+            letter-spacing: -.02em;
+
+            margin-bottom: 20px;
+
+            position: relative;
+
+            font-family:
+                "Space Grotesk",
+                "Noto Serif SC",
+                "Noto Sans SC",
+                sans-serif;
+
+            font-weight: 700;
+
+        }
+
+
+        .hana-copy h2 .word {
+
+            display: block;
+
+        }
+
+
+        .hana-copy h2 .word-1 {
+
+            color: var(--bone);
+
+        }
+
+
+        .hana-copy h2 .word-2 {
+
+            color: transparent;
+
+            -webkit-text-stroke: 3px var(--blood);
+
+            font-style: italic;
+
+            transform: translateX(30px);
+
+        }
+
+
+        .hana-copy p {
+
+            font-size: 14px;
+
+            line-height: 2;
+
+            color: var(--ash);
+
+            font-family: "Noto Sans SC", "DM Mono", monospace;
+
+            margin-bottom: 20px;
+
+        }
+
+
+        .hana-image {
+
+            min-height: 500px;
+
+            position: relative;
+
+            border: 1px solid var(--border-raw);
+
+            background: var(--void-2);
+
+            overflow: hidden;
+
+        }
+
+
+        .hana-image::before {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+
+                linear-gradient(
+                    135deg,
+                    rgba(204,255,0,.2),
+                    transparent 50%,
+                    rgba(255,0,64,.2)
+                );
+
+            z-index: 1;
+
+            mix-blend-mode: screen;
+
+        }
+
+
+        .hana-image img {
+
+            width: 100%;
+
+            height: 100%;
+
+            object-fit: cover;
+
+            filter: contrast(1.3) saturate(1.2);
+
+            animation: glitch-clip 10s infinite;
+
+        }
+
+
+        /* =====================================================
+           哲思 —— 虚空
+        ====================================================== */
+
+        .philosophy {
+
+            text-align: center;
+
+            padding: 160px 0;
+
+            background: var(--void);
+
+        }
+
+
+        .philosophy-mark {
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: .25em;
+
+            color: var(--blood);
+
+            margin-bottom: 40px;
+
+        }
+
+
+        .philosophy h2 {
+
+            max-width: 1100px;
+
+            margin: auto;
+
+            font-size: clamp(2.2rem, 6vw, 5rem);
+
+            line-height: 1.05;
+
+            letter-spacing: -.02em;
+
+            font-weight: 700;
+
+            font-family:
+                "Space Grotesk",
+                "Noto Serif SC",
+                "Noto Sans SC",
+                sans-serif;
+
+        }
+
+
+        .philosophy h2 .fragment {
+
+            display: block;
+
+            margin-bottom: 12px;
+
+        }
+
+
+        .philosophy h2 .fragment-1 {
+
+            color: var(--bone);
+
+        }
+
+
+        .philosophy h2 .fragment-2 {
+
+            color: transparent;
+
+            -webkit-text-stroke: 2px var(--acid);
+
+            font-style: italic;
+
+        }
+
+
+        .philosophy h2 .fragment-3 {
+
+            background: var(--blood);
+
+            color: var(--void);
+
+            display: inline-block;
+
+            padding: 0 14px;
+
+            transform: skewX(-10deg);
+
+        }
+
+
+        /* =====================================================
+           页脚 —— 终端
+        ====================================================== */
+
+        footer {
+
+            border-top: 2px solid var(--acid);
+
+            padding: 60px 0 30px;
+
+            background: var(--void-2);
+
+        }
+
+
+        .footer-grid {
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: flex-start;
+
+            gap: 40px;
+
+            flex-wrap: wrap;
+
+            margin-bottom: 40px;
+
+        }
+
+
+        .footer-brand {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 12px;
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 13px;
+
+            letter-spacing: .15em;
+
+            color: var(--bone);
+
+        }
+
+
+        .footer-logo {
+
+            width: 40px;
+
+            height: 40px;
+
+            object-fit: contain;
+
+            filter: invert(1);
+
+        }
+
+
+        .footer-sub {
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 11px;
+
+            color: var(--ash);
+
+            letter-spacing: .15em;
+
+            margin-top: 10px;
+
+        }
+
+
+        .footer-links {
+
+            display: flex;
+
+            gap: 24px;
+
+            flex-wrap: wrap;
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 10px;
+
+            letter-spacing: .15em;
+
+        }
+
+
+        .footer-links a {
+
+            color: var(--ash);
+
+            text-decoration: none;
+
+            transition: color .2s ease;
+
+        }
+
+
+        .footer-links a:hover {
+
+            color: var(--acid);
+
+        }
+
+
+        .copyright {
+
+            border-top: 1px solid rgba(255,255,255,.1);
+
+            padding-top: 20px;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            font-family: "DM Mono", "Noto Sans SC", monospace;
+
+            font-size: 9px;
+
+            letter-spacing: .18em;
+
+            color: var(--smoke);
+
+        }
+
+
+        /* =====================================================
+           响应式
+        ====================================================== */
+
+        @media (max-width: 900px) {
+
+            .nav-links {
+                display: none;
+            }
+
+            .hero-grid,
+            .about-grid,
+            .hana-grid,
+            .project {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .domains {
+
+                grid-template-columns: repeat(2, 1fr);
+
+            }
+
+
+            .domain:nth-child(2n) {
+
+                border-right: none;
+
+            }
+
+
+            .hero-art {
+
+                min-height: 400px;
+
+            }
+
+
+            .abstract-composition {
+
+                min-height: 400px;
+
+            }
+
+        }
+
+
+        @media (max-width: 600px) {
+
+            .hero {
+
+                padding: 80px 0 40px;
+
+            }
+
+
+            .hero-grid {
+
+                gap: 30px;
+
+            }
+
+
+            .hero-text h1 {
+
+                font-size: 3.4rem;
+
+            }
+
+
+            .hero-art {
+
+                min-height: 300px;
+
+                order: -1;
+
+            }
+
+
+            .domains {
+
+                grid-template-columns: 1fr;
+
+            }
+
+
+            .domain {
+
+                border-right: none;
+
+                border-bottom: 1px solid var(--border-raw);
+
+                min-height: 250px;
+
+            }
+
+
+            .domain:nth-last-child(-n+4) {
+
+                border-bottom: 1px solid var(--border-raw);
+
+            }
+
+
+            .domain:last-child {
+
+                border-bottom: none;
+
+            }
+
+
+            .footer-grid,
+            .copyright {
+
+                flex-direction: column;
+
+            }
+
+
+            .footer-links {
+
+                flex-wrap: wrap;
+
+            }
+
+
+            .project-links {
+
+                flex-direction: column;
+
+                align-items: stretch;
+
+            }
+
+
+            .project-logo-badge {
+
+                width: 60px;
+
+                height: 60px;
+
+                bottom: 14px;
+
+                left: 14px;
+
+                padding: 8px;
+
+            }
+
+        }
+
+
+        /* =====================================================
+           无障碍
+        ====================================================== */
+
+        @media (prefers-reduced-motion: reduce) {
+
+            *,
+            *::before,
+            *::after {
+
+                animation-duration: 0.01ms !important;
+
+                animation-iteration-count: 1 !important;
+
+                transition-duration: 0.01ms !important;
+
+            }
+
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- =====================================================
+         扫描线
+    ====================================================== -->
+
+    <div class="scanline"></div>
+
+
+    <!-- =====================================================
+         导航
+    ====================================================== -->
+
+    <nav>
+
+        <a href="#top" class="nav-brand">
+
+            <img
+                src="assets/DHA_logo_h.png"
+                alt="DHA®"
+                class="nav-logo"
+            >
+
+            <span>DHA®</span>
+
+        </a>
+
+
+        <div class="nav-links">
+
+            <a href="#about">[关于]</a>
+
+            <a href="#domains">[领域]</a>
+
+            <a href="#work">[作品]</a>
+
+            <a href="#hana">[花]</a>
+
+            <a
+                href="https://github.com/DigitalHanaArts"
+                target="_blank"
+                rel="noopener noreferrer"
+            >
+                [GitHub]
+            </a>
+
+        </div>
+
+
+        <div class="lang-switch">
+
+            <input type="checkbox" id="lang-toggle" class="lang-toggle">
+
+            <label for="lang-toggle" class="lang-button">
+                [中文] ▾
+            </label>
+
+            <div class="lang-dropdown" role="menu">
+
+                <a href="https://digitalhanaarts.github.io/dha/" class="lang-option">[EN]</a>
+
+                <a href="https://digitalhanaarts.github.io/dha-zh/" class="lang-option active">[中文]</a>
+
+                <a href="https://digitalhanaarts.github.io/dha-per/" class="lang-option">[فارسی]</a>
+
+                <a href="https://digitalhanaarts.github.io/it_dha/" class="lang-option">[IT]</a>
+
+                <a href="https://digitalhanaarts.github.io/dha_ar/" class="lang-option">[AR]</a>
+
+            </div>
+
+        </div>
+
+    </nav>
+
+
+    <!-- =====================================================
+         主体
+    ====================================================== -->
+
+    <main id="top">
+
+
+        <!-- =================================================
+             主视觉
+        ================================================== -->
+
+        <section class="hero">
+
+            <div class="container">
+
+                <div class="hero-grid">
+
+                    <div class="hero-text">
+
+                        <span class="hero-label">[计算艺术引擎]</span>
+
+                        <h1>
+
+                            <span class="word word-1">数字</span>
+
+                            <span class="word word-2">花</span>
+
+                            <span class="word word-3">艺术®</span>
+
+                        </h1>
+
+                        <span class="hero-brand-en">
+                            DIGITAL HANA ARTS®
+                        </span>
+
+                        <p class="hero-copy">
+
+                            在 <strong>艺术</strong> 与 <strong>算法</strong> 之间，
+
+                            在 <strong>数据</strong> 与 <strong>梦境</strong> 之间，
+
+                            在 <strong>智能</strong> 与 <strong>本能</strong> 之间 ——
+
+                            DHA 在 虚空 中 运作。
+
+                        </p>
+
+                        <div class="hero-actions">
+
+                            <a href="#work" class="button button-primary">
+                                [探索作品]
+                            </a>
+
+                            <a
+                                href="https://github.com/DigitalHanaArts"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="button"
+                            >
+                                [GitHub ↗]
+                            </a>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="hero-art">
+
+                        <div class="abstract-composition">
+
+                            <div class="abstract-shape shape-1"></div>
+
+                            <div class="abstract-shape shape-2"></div>
+
+                            <div class="abstract-shape shape-3"></div>
+
+                            <div class="abstract-shape shape-4"></div>
+
+                            <div class="glitch-text" data-text="花">花</div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             跑马灯
+        ================================================== -->
+
+        <div class="marquee">
+
+            <div class="marquee-track">
+
+                <span>艺术</span>
+                <span>数据</span>
+                <span>人工智能</span>
+                <span>区块链</span>
+                <span>生成</span>
+                <span>计算</span>
+                <span>智能</span>
+                <span>可视化</span>
+                <span>MLABCHAIN</span>
+                <span>抽象</span>
+                <span>协议</span>
+
+                <span>艺术</span>
+                <span>数据</span>
+                <span>人工智能</span>
+                <span>区块链</span>
+                <span>生成</span>
+                <span>计算</span>
+                <span>智能</span>
+                <span>可视化</span>
+                <span>MLABCHAIN</span>
+                <span>抽象</span>
+                <span>协议</span>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             关于
+        ================================================== -->
+
+        <section id="about">
+
+            <div class="container">
+
+                <div class="about-grid">
+
+                    <div class="about-visual"></div>
+
+
+                    <div class="about-text">
+
+                        <span class="section-label">[01/工作室]</span>
+
+                        <h2>
+
+                            技术，
+
+                            即
+
+                            <span class="highlight">材料。</span>
+
+                        </h2>
+
+                        <p>
+
+                            Digital Hana Arts 是一家实验性的
+
+                            计算创意工作室，
+
+                            游走于 <strong>技术</strong>
+
+                            与 <strong>艺术表达</strong> 之间的
+
+                            间隙地带。
+
+                        </p>
+
+                        <p>
+
+                            我们构建软件、视觉系统、
+
+                            机器学习实验、数据驱动的艺术作品
+
+                            以及面向区块链的数字资产 ——
+
+                            全部带有一种
+
+                            <strong>后人类</strong> 的
+
+                            感知方式。
+
+                        </p>
+
+                        <p>
+
+                            我们的核心问题并不简单：
+
+                            <strong>当计算成为一种创意媒介时，
+
+                            会发生什么？</strong>
+
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             领域
+        ================================================== -->
+
+        <section id="domains">
+
+            <div class="container">
+
+                <span class="section-label">[02/生态系统]</span>
+
+                <h2 class="section-title">
+
+                    四大领域。
+
+                    <span class="accent">一个系统。</span>
+
+                    <span class="strike">没有边界。</span>
+
+                </h2>
+
+                <p class="section-intro">
+
+                    DHA 横跨多个学科，
+
+                    而非局限于某一项技术类别。
+
+                    这是一张被解构的网格。
+
+                </p>
+
+
+                <div class="domains">
+
+
+                    <article class="domain" data-number="01">
+
+                        <div class="domain-symbol">◇</div>
+
+                        <h3>数字艺术</h3>
+
+                        <p>
+                            生成系统、算法艺术、
+                            计算摄影与实验性数字媒体。
+                        </p>
+
+                    </article>
+
+
+                    <article class="domain" data-number="02">
+
+                        <div class="domain-symbol">◌</div>
+
+                        <h3>数据科学</h3>
+
+                        <p>
+                            数据挖掘、分析、可视化、
+                            统计计算与数据驱动的发现。
+                        </p>
+
+                    </article>
+
+
+                    <article class="domain" data-number="03">
+
+                        <div class="domain-symbol">◎</div>
+
+                        <h3>智能</h3>
+
+                        <p>
+                            机器学习、深度学习、
+                            计算机视觉与生成式人工智能。
+                        </p>
+
+                    </article>
+
+
+                    <article class="domain" data-number="04">
+
+                        <div class="domain-symbol">⛓</div>
+
+                        <h3>区块链</h3>
+
+                        <p>
+                            NFT、数字资产、区块链
+                            分析与去中心化创意生态。
+                        </p>
+
+                    </article>
+
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             作品
+        ================================================== -->
+
+        <section id="work">
+
+            <div class="container">
+
+                <span class="section-label">[03/精选作品]</span>
+
+                <h2 class="section-title">
+
+                    从 <span class="accent">像素</span>
+
+                    到 <span class="strike">智能</span>。
+
+                </h2>
+
+
+                <!-- =========================================
+                     MLabChain
+                ========================================== -->
+                <div class="project project-wide">
+
+                    <div class="project-visual">
+
+                        <img
+                            src="assets/MLabChain_v3_Banner.png"
+                            alt="MLabChain — 区块链研究平台"
+                            loading="lazy"
+                        >
+
+                        <img
+                            src="assets/mlabchain.png"
+                            alt="MLabChain 标志"
+                            class="project-logo-badge"
+                        >
+
+                    </div>
+
+                    <div class="project-info">
+
+                        <span class="project-tag">[区块链协议]</span>
+
+                        <h3>MLab<br>Chain</h3>
+
+                        <p>
+
+                            一个面向区块链的研究与工程平台 ——
+
+                            连接实验室科学、去中心化基础设施
+
+                            与可验证计算。
+
+                        </p>
+
+                        <div class="tech">
+
+                            <span>区块链</span>
+                            <span>分布式</span>
+                            <span>Web3</span>
+                            <span>高能物理</span>
+                            <span>研究</span>
+
+                        </div>
+
+                        <div class="project-links">
+
+                            <a
+                                href="https://github.com/DigitalHanaArts/MLabChain"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="button button-primary"
+                            >
+                                [GitHub ↗]
+                            </a>
+
+                            <a
+                                href="https://gitlab.cern.ch/abavarch/labchain"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="button"
+                            >
+                                [GitLab ↗]
+                            </a>
+
+                            <a
+                                href="https://digitalhanaarts.github.io/mlc/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                class="button"
+                            >
+                                [项目主页 ↗]
+                            </a>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <!-- DHA Vision -->
+                <div class="project">
+
+                    <div class="project-visual">
+
+                        <img
+                            src="assets/DHA_Vision.png"
+                            alt="DHA Vision"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="project-info">
+
+                        <span class="project-tag">[实验平台]</span>
+
+                        <h3>DHA<br>Vision</h3>
+
+                        <p>
+
+                            一个基于 Julia 的计算艺术平台，
+
+                            探索如何通过图像处理、机器学习
+
+                            与生成系统，将照片转化为
+
+                            全新的数字艺术作品。
+
+                        </p>
+
+                        <div class="tech">
+
+                            <span>Julia</span>
+                            <span>Flux</span>
+                            <span>机器学习</span>
+                            <span>图像处理</span>
+                            <span>生成艺术</span>
+
+                        </div>
+
+                        <a
+                            href="https://github.com/DigitalHanaArts/DHA-Vision"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="button"
+                        >
+                            [查看项目 ↗]
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+                <!-- OpenSea -->
+                <div class="project">
+
+                    <div class="project-visual">
+
+                        <img
+                            src="assets/opensea.io.jpeg"
+                            alt="OpenSea 系列"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                    <div class="project-info">
+
+                        <span class="project-tag">[NFT 系列]</span>
+
+                        <h3>OpenSea<br>系列</h3>
+
+                        <p>
+
+                            探索 Digital Hana Arts 在 OpenSea 上的
+
+                            官方系列 —— 精选数字资产、
+
+                            生成艺术作品，以及基于区块链的创作。
+
+                        </p>
+
+                        <div class="tech">
+
+                            <span>NFT</span>
+                            <span>以太坊</span>
+                            <span>数字艺术</span>
+                            <span>区块链</span>
+                            <span>OpenSea</span>
+
+                        </div>
+
+                        <a
+                            href="https://opensea.io/Digital__Hana__Arts"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            class="button"
+                        >
+                            [访问 OpenSea ↗]
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             花
+        ================================================== -->
+
+        <section id="hana">
+
+            <div class="container">
+
+                <div class="hana-grid">
+
+                    <div class="hana-copy">
+
+                        <span class="section-label">[04/起源]</span>
+
+                        <h2>
+
+                            <span class="word word-1">认识</span>
+
+                            <span class="word word-2">花。</span>
+
+                        </h2>
+
+                        <p>
+
+                            Digital Hana Arts 以「花」命名 ——
+
+                            视觉标识核心中的那只小猫。
+
+                        </p>
+
+                        <p>
+
+                            她的存在，
+
+                            为这个充满计算的世界
+
+                            带来一些刻意保留的
+
+                            人性与有机 ——
+
+                            <strong>好奇、个性
+
+                            与性格。</strong>
+
+                        </p>
+
+                    </div>
+
+                    <div class="hana-image">
+
+                        <img
+                            src="assets/Hana_the_kitten.jpeg"
+                            alt="花 小猫"
+                            loading="lazy"
+                        >
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- =================================================
+             哲思
+        ================================================== -->
+
+        <section class="philosophy">
+
+            <div class="container">
+
+                <span class="philosophy-mark">[05/问题]</span>
+
+                <h2>
+
+                    <span class="fragment fragment-1">当计算</span>
+
+                    <span class="fragment fragment-2">成为</span>
+
+                    <span class="fragment fragment-3">一种创意媒介时？</span>
+
+                </h2>
+
+            </div>
+
+        </section>
+
+
+    </main>
+
+
+    <!-- =====================================================
+         页脚
+    ====================================================== -->
+
+    <footer>
+
+        <div class="container">
+
+            <div class="footer-grid">
+
+                <div>
+
+                    <div class="footer-brand">
+
+                        <img
+                            src="assets/DHA_logo.png"
+                            alt="DHA®"
+                            class="footer-logo"
+                        >
+
+                        <span>DIGITAL HANA ARTS®</span>
+
+                    </div>
+
+                    <div class="footer-sub">
+                        艺术 × 数据 × 智能 × 区块链
+                    </div>
+
+                </div>
+
+                <div class="footer-links">
+
+                    <a
+                        href="https://github.com/DigitalHanaArts"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        [GitHub]
+                    </a>
+
+                    <a href="#top">[返回顶部 ↑]</a>
+
+                </div>
+
+            </div>
+
+            <div class="copyright">
+
+                <span>© 2026 DIGITAL HANA ARTS®</span>
+
+                <span>以计算作为创意媒介</span>
+
+            </div>
+
+        </div>
+
+    </footer>
+
+
+</body>
+
+</html>
